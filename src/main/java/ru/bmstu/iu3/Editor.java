@@ -2,6 +2,7 @@ package ru.bmstu.iu3;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.link.Link;
@@ -9,10 +10,13 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 public class Editor extends WebPage {
 	private static final long serialVersionUID = 1L;
+	String way = new String();
+
 
 	public Editor(final PageParameters parameters) {
 		super(parameters);
-
+		way = parameters.get("way").toString();
+		add(new Label("way", way+"Debug"));
 
 		Link toDirectoryInterface = new Link<Void>("toDirectoryInterface") {
 			@Override
