@@ -1,9 +1,10 @@
 package ru.bmstu.iu3;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextArea;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -16,7 +17,7 @@ public class DirectoryInterface extends WebPage {
 
     public DirectoryInterface(final PageParameters parameters) {
         super(parameters);
-
+        ExtracterOfInput extracter = new ExtracterOfInput();
         Link toEditor = new Link<Void>("toEditor") {
             @Override
             public void onClick() {
@@ -44,9 +45,35 @@ public class DirectoryInterface extends WebPage {
         TextArea listOfFiles = new TextArea("files", Model.of(""));
         listOfFiles.setEnabled(false);
         listOfFiles.setDefaultModelObject(files);
-        System.out.println(files);
         add(listOfFiles);
 
+        StatelessForm chooseFileForOpen = new StatelessForm("selector");
+        TextArea name = new TextArea("name", Model.of(""));
+        chooseFileForOpen.add(name);
+        AjaxButton opener = new AjaxButton("opener", Model.of(""))
+        {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
+                super.onSubmit(target);
+                PageParameters pp = new PageParameters();
+                pp.add("way", name.getValue());
+                setResponsePage(Editor.class, pp);
+            }
+        };
+        chooseFileForOpen.add(opener);
+        add(chooseFileForOpen);
 
+    }
+}
+class ExtracterOfInput
+{
+    String str;
+
+    public String getStr() {
+        return str;
+    }
+
+    public void setStr(String str) {
+        this.str = str;
     }
 }

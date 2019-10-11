@@ -6,7 +6,11 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+
+import java.io.File;
+import java.util.Scanner;
 
 public class Editor extends WebPage {
 	private static final long serialVersionUID = 1L;
@@ -16,7 +20,7 @@ public class Editor extends WebPage {
 	public Editor(final PageParameters parameters) {
 		super(parameters);
 		way = parameters.get("way").toString();
-		add(new Label("way", way+"Debug"));
+
 
 		Link toDirectoryInterface = new Link<Void>("toDirectoryInterface") {
 			@Override
@@ -35,7 +39,23 @@ public class Editor extends WebPage {
 		menu.add(toDirectoryInterface);
 		add(menu);
 		Form form = new Form("form");
-		TextArea textArea = new TextArea("text");
+		TextArea textArea = new TextArea("text", Model.of(""));
+		System.out.println(way);
+		if (way!=null) {
+			System.out.println(way+" in ediro");
+			String text = new String();
+			try {
+				Scanner scanner = new Scanner(new File(way));
+				while (scanner.hasNextLine())
+					text+=scanner.nextLine()+"\n";
+			}
+
+			catch (Exception e)
+			{
+				System.out.println(e.getMessage());
+			}
+			textArea.setDefaultModelObject(text);
+		}
 		form.add(textArea);
 		add(form);
 
