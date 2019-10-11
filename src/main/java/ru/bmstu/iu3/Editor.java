@@ -23,7 +23,7 @@ public class Editor extends WebPage {
 		Link toTheory = new Link<Void>("toTheory") {
 			@Override
 			public void onClick() {
-				setResponsePage(Editor.class);
+				setResponsePage(Theory.class);
 			}
 		};
 		WebMarkupContainer menu = new WebMarkupContainer("menu");
