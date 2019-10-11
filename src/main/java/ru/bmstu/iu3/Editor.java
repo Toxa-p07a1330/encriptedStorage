@@ -3,13 +3,16 @@ package ru.bmstu.iu3;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Editor extends WebPage {
@@ -56,7 +59,31 @@ public class Editor extends WebPage {
 			}
 			textArea.setDefaultModelObject(text);
 		}
+
+		TextField wayToSaveFile = new TextField("wayToSaveFile", Model.of(""));
+		Button saveButton = new Button("save")
+		{
+			@Override
+			public void onSubmit() {
+				super.onSubmit();
+				File file = new File(wayToSaveFile.getInput());
+				try
+				{
+					FileWriter fw = new FileWriter(file);
+					fw.write(textArea.getDefaultModelObject().toString());
+					fw.close();
+				}
+				catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+
+				}
+		};
+
+		form.add(wayToSaveFile);
 		form.add(textArea);
+		form.add(saveButton);
+
 		add(form);
 
 	}
