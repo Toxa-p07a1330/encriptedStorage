@@ -17,13 +17,11 @@ public class DirectoryInterface extends WebPage {
 
     public DirectoryInterface(final PageParameters parameters) {
         super(parameters);
-        ExtracterOfInput extracter = new ExtracterOfInput();
+        wayToDirs = new File(".").getAbsolutePath();
         Link toEditor = new Link<Void>("toEditor") {
             @Override
             public void onClick() {
-                PageParameters params = new PageParameters();
-                params.add("way", "test");                  //todo передавать текст из инпута
-                setResponsePage(Editor.class, params);
+                setResponsePage(Editor.class);
             }
         };
         Link toTheory = new Link<Void>("toTheory") {
@@ -38,8 +36,10 @@ public class DirectoryInterface extends WebPage {
 
         add(menu);
 
-        File directory = new File(wayToDirs);
+
+        File directory = new File(".");
         String files = new String();
+        directory.mkdirs();
         for (File i : directory.listFiles())
             files+=i.toString()+"\n";
         TextArea listOfFiles = new TextArea("files", Model.of(""));
@@ -63,17 +63,5 @@ public class DirectoryInterface extends WebPage {
         chooseFileForOpen.add(opener);
         add(chooseFileForOpen);
 
-    }
-}
-class ExtracterOfInput
-{
-    String str;
-
-    public String getStr() {
-        return str;
-    }
-
-    public void setStr(String str) {
-        this.str = str;
     }
 }
