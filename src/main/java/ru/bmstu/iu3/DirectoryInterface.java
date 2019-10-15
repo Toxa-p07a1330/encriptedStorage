@@ -17,7 +17,7 @@ public class DirectoryInterface extends WebPage {
 
     public DirectoryInterface(final PageParameters parameters) {
         super(parameters);
-        wayToDirs = new File(".").getAbsolutePath();
+        wayToDirs = "/usr/local/share/filesForEditor";
         Link toEditor = new Link<Void>("toEditor") {
             @Override
             public void onClick() {
@@ -37,7 +37,7 @@ public class DirectoryInterface extends WebPage {
         add(menu);
 
 
-        File directory = new File(".");
+        File directory = new File(wayToDirs);
         String files = new String();
         directory.mkdirs();
         for (File i : directory.listFiles())

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+	<meta charset="UTF-8">
 	<title>Title</title>
 <style>
 	.menu{
 		width: 100%;
-		text-align: justify;
+		text-align: center;
 		display: block;
 		margin: 0 auto 0 auto;
-		text-align: center;
 	}
 	.form
 	{
@@ -17,7 +16,19 @@
 		text-align: justify;
 		display: block;
 		margin: 0 auto 0 auto;
-		text-align: center;
+	}
+	.editor
+	{
+		position: absolute;
+
+		left: 20%; /* (100% - width) / 2 */
+		top: 8%;  /* (100% - height) / 2 */
+	}
+	.input
+	{
+		text-align: justify;
+		display: block;
+		margin: 0 auto 0 auto;
 	}
 </style>
 
@@ -28,21 +39,18 @@
 <body>
 
 <div wicket:id="menu" id="menu" class="menu">
-	<a wicket:id="toTheory" href="Theory.html">Справка</a>
-	<a wicket:id="toDirectoryInterface" href="DirectoryInterface.html">Хранилище</a>
+	<a wicket:id="toTheory" href="Theory.html">РЎРїСЂР°РІРєР°</a>
+	<a wicket:id="toDirectoryInterface" href="DirectoryInterface.html">РҐСЂР°РЅРёР»РёС‰Рµ</a>
 </div>
 
 <form wicket:id="form" class="form">
-	<div style="position: absolute;
-  height: 50%;
-  width: 50%;
-  left: 20%; /* (100% - width) / 2 */
-  top: 5%;  /* (100% - height) / 2 */">
+	<div class = "editor">
 		<textarea  wicket:id = "text" height="90%" width="90%" rows="60" cols="150"  id="text"/>
 	</div>
 
-	<input wicket:id="wayToSaveFile">
-	<button wicket:id = "save">Save</button>
+	<input wicket:id="wayToSaveFile"class="input">
+	<button wicket:id = "save" class="input">Save</button>
 </form>
+<div wicket:id="debug"></div>
 </body>
 </html>

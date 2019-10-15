@@ -22,6 +22,8 @@ public class Editor extends WebPage {
 
 	public Editor(final PageParameters parameters) {
 		super(parameters);
+		Label debud = new Label("debug", "");				//debug
+		add(debud);
 		way = parameters.get("way").toString();
 
 
@@ -45,7 +47,6 @@ public class Editor extends WebPage {
 		TextArea textArea = new TextArea("text", Model.of(""));
 		System.out.println(way);
 		if (way!=null) {
-			System.out.println(way+" in ediro");
 			String text = new String();
 			try {
 				Scanner scanner = new Scanner(new File(way));
@@ -65,17 +66,18 @@ public class Editor extends WebPage {
 		{
 			@Override
 			public void onSubmit() {
-				super.onSubmit();
-				File file = new File(wayToSaveFile.getInput());
-				try
-				{
-					FileWriter fw = new FileWriter(file);
-					fw.write(textArea.getDefaultModelObject().toString());
-					fw.close();
-				}
-				catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
+					super.onSubmit();
+					File file = new File(wayToSaveFile.getInput());
+					try
+					{
+						FileWriter fw = new FileWriter(file);
+						fw.write(textArea.getDefaultModelObject().toString());
+						fw.close();
+					}
+					catch (Exception e) {
+						System.out.println(e.getMessage());
+						debud.setDefaultModelObject(e.getMessage());
+					}
 
 				}
 		};
@@ -85,6 +87,7 @@ public class Editor extends WebPage {
 		form.add(saveButton);
 
 		add(form);
+
 
 	}
 }
