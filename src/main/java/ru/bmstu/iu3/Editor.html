@@ -22,7 +22,7 @@
 		position: absolute;
 
 		left: 20%; /* (100% - width) / 2 */
-		top: 8%;  /* (100% - height) / 2 */
+		top: 15%;  /* (100% - height) / 2 */
 	}
 	.input
 	{
@@ -33,17 +33,25 @@
 </style>
 <script>
 
-	function encrypt(inputString, password) {
+	function encryptFun(){
+		alert("de");			//deb
 		let outputString = "";
+		let inputString = document.getElementById("text").value;
+		let password = document.getElementById("passwordTextField").value;
 		for (let i = 0; i<inputString.toString().length-1; i++)
-			outputString+=(String.fromCharCode((inputString.toString().charCodeAt(i)+65536-password.toString().charCodeAt(i%password.toString().length))%65536));
+			outputString+=(String.fromCharCode((inputString.toString().charCodeAt(i)+256-password.toString().charCodeAt(i%password.toString().length))%256));
+		document.getElementById("text").value = outputString;
 		return outputString;
 	};
-	function decrypt(inputString, password) {
-		let outputString = "";
-		for (let i = 0; i<inputString.toString().length-1; i++)
-			outputString+=(String.fromCharCode((inputString.toString().charCodeAt(i)-65536+password.toString().charCodeAt(i%password.toString().length))%65536));
-		return outputString;
+	function decryptFun(){
+		alert("de");			//deb
+	let outputString = "";
+	let inputString = document.getElementById("text").value;
+	let password = document.getElementById("passwordTextField").value;
+	for (let i = 0; i<inputString.toString().length-1; i++)
+		outputString+=(String.fromCharCode((inputString.toString().charCodeAt(i)+256+password.toString().charCodeAt(i%password.toString().length))%256));
+	document.getElementById("text").value = outputString;
+	return outputString;
 	};
 </script>
 
@@ -64,6 +72,9 @@
 
 	<input wicket:id="wayToSaveFile"class="input">
 	<button wicket:id = "save" class="input">Save</button>
+	<input id = "passwordTextField" class="input">
+	<button id = "encrypt" onclick="encryptFun()" class="input">Зашифровать</button>
+	<button id = "decrypt" onclick="decryptFun()" class="input">Расшифровать</button>
 </form>
 <div wicket:id="debug"></div>
 </body>
