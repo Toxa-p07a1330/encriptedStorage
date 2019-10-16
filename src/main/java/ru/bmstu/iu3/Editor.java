@@ -67,7 +67,7 @@ public class Editor extends WebPage {
 			@Override
 			public void onSubmit() {
 					super.onSubmit();
-					File file = new File(wayToSaveFile.getInput());
+					File file = new File(DirectoryInterface.wayToDirs+"/" + wayToSaveFile.getInput());
 					try
 					{
 						FileWriter fw = new FileWriter(file);

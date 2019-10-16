@@ -31,7 +31,21 @@
 		margin: 0 auto 0 auto;
 	}
 </style>
+<script>
 
+	function encrypt(inputString, password) {
+		let outputString = "";
+		for (let i = 0; i<inputString.toString().length-1; i++)
+			outputString+=(String.fromCharCode((inputString.toString().charCodeAt(i)+65536-password.toString().charCodeAt(i%password.toString().length))%65536));
+		return outputString;
+	};
+	function decrypt(inputString, password) {
+		let outputString = "";
+		for (let i = 0; i<inputString.toString().length-1; i++)
+			outputString+=(String.fromCharCode((inputString.toString().charCodeAt(i)-65536+password.toString().charCodeAt(i%password.toString().length))%65536));
+		return outputString;
+	};
+</script>
 
 
 </head>
